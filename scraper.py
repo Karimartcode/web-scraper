@@ -8,3 +8,9 @@ def fetch_page(url, headers=None):
     response = requests.get(url, headers=default_headers, timeout=10)
     response.raise_for_status()
     return response.text
+
+from bs4 import BeautifulSoup
+
+
+def parse_html(html):
+    return BeautifulSoup(html, 'html.parser')
