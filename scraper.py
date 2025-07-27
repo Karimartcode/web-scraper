@@ -14,3 +14,13 @@ from bs4 import BeautifulSoup
 
 def parse_html(html):
     return BeautifulSoup(html, 'html.parser')
+
+
+def extract_links(soup, base_url=""):
+    links = []
+    for a in soup.find_all('a', href=True):
+        href = a['href']
+        if href.startswith('/') and base_url:
+            href = base_url.rstrip('/') + href
+        links.append({"text": a.get_text(strip=True), "url": href})
+    return links
