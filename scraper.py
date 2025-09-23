@@ -24,3 +24,11 @@ def extract_links(soup, base_url=""):
             href = base_url.rstrip('/') + href
         links.append({"text": a.get_text(strip=True), "url": href})
     return links
+
+
+def extract_headings(soup):
+    headings = []
+    for tag in ['h1', 'h2', 'h3', 'h4']:
+        for h in soup.find_all(tag):
+            headings.append({"level": tag, "text": h.get_text(strip=True)})
+    return headings
