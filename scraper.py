@@ -32,3 +32,14 @@ def extract_headings(soup):
         for h in soup.find_all(tag):
             headings.append({"level": tag, "text": h.get_text(strip=True)})
     return headings
+
+
+def extract_images(soup, base_url=""):
+    images = []
+    for img in soup.find_all('img'):
+        src = img.get('src', '')
+        alt = img.get('alt', '')
+        if src.startswith('/') and base_url:
+            src = base_url.rstrip('/') + src
+        images.append({"src": src, "alt": alt})
+    return images
