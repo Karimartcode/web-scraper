@@ -43,3 +43,15 @@ def extract_images(soup, base_url=""):
             src = base_url.rstrip('/') + src
         images.append({"src": src, "alt": alt})
     return images
+
+
+def extract_tables(soup):
+    tables = []
+    for table in soup.find_all('table'):
+        rows = []
+        for tr in table.find_all('tr'):
+            cells = [td.get_text(strip=True) for td in tr.find_all(['td', 'th'])]
+            if cells:
+                rows.append(cells)
+        tables.append(rows)
+    return tables
